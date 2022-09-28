@@ -14,8 +14,8 @@ print(url) #make sure the URL works fine
 #says we're not logged in...so cookies?
 #we can make a legit session then
 session = requests.Session()
-#response = session.get(url, auth = (username, password))
-
+response = session.get(url, auth = (username, password))
+print(session.cookies)
 
 
 #print(session.cookies) #shows our cookies
