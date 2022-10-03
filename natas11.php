@@ -68,4 +68,7 @@ echo("|cookie data: " . $cookie);//this actually returned something proper using
 //after fixing the function above, it's not gimping out and I got different cookie data: MGw7JCQ5FzwqPTs7JDwsbnFsMSk4bGRuKSkrIychOm5xbGsqLSguKi1sNQ==
 // still had to run in terminal though, in-sublime terminal is goofy
 
+
+
+echo("SDG")
 ?>

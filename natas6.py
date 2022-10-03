@@ -26,3 +26,4 @@ content = response.text
 #print(content)
 
 print(re.findall('Access granted. The password for natas7 is (.*)', content))
+print('SDG')
