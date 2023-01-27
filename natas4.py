@@ -31,7 +31,9 @@ response = requests.get(url, auth = (username, password), headers = notourheader
 
 content = response.text
 
-#print(content)
+print(content)
 
 
 print(re.findall('Access granted. The password for natas5 is (.*)', content))
+
+#SDG
