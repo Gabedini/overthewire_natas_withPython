@@ -42,4 +42,5 @@ content = response.text
 
 #classic regexing
 print(re.findall('Output:\n<pre>\n(.*)\n</pre>', content))
-print('SDG')
+
+"""SDG"""

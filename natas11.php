@@ -70,5 +70,5 @@ echo("|cookie data: " . $cookie);//this actually returned something proper using
 
 
 
-echo("SDG")
+//SDG
 ?>

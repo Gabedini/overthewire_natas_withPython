@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+
 import requests
 import re
 
@@ -9,7 +10,7 @@ password = 'Z0NsrtIkJoKALBCLi5eqFfcRN82Au2oD'
 url = 'http://%s.natas.labs.overthewire.org/' % username
 print(url) #make sure the URL works fine
 
-"""Starting with our defaul stuff
+"""Starting with our default stuff
 response = requests.get(url, auth = (username, password))
 content = response.text
 print(content) returns "Access disallowed. You are not logged in"
@@ -45,4 +46,4 @@ content = response.text
 print(content)
 
 print(re.findall('Access granted. The password for natas6 is (.*)</div>', content))
-#SDG
+"""SDG"""

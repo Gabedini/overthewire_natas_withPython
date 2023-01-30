@@ -33,4 +33,4 @@ print(content)
 #regexing out everything but the password.
 print(re.findall('<!--The password for natas2 is (.*) -->', content))
 
-#SDG
+"""SDG"""
