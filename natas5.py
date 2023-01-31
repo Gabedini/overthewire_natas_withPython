@@ -13,13 +13,14 @@ print(url) #make sure the URL works fine
 """Starting with our default stuff
 response = requests.get(url, auth = (username, password))
 content = response.text
-print(content) returns "Access disallowed. You are not logged in"
+print(content) #returns "Access disallowed. You are not logged in"
 But it shows us passing our username and password?
 It seems to be a persistence thing.... Hey, look at this: https://requests.readthedocs.io/en/latest/user/advanced/#session-objects
 """
 session = requests.Session()
 #request = session.get(url, auth = (username, password))
 #print(request.text)
+
 """This doesn't seem to be doing much for us, looks pretty much the same,
 Reading the link above it mentions cookies a bunch, cookies are for sesions, so what about that?
 We must be able to do something with the cookies in Python, right? But those have to be built into the page.. oh hey
@@ -46,4 +47,6 @@ content = response.text
 print(content)
 
 print(re.findall('Access granted. The password for natas6 is (.*)</div>', content))
+
+
 """SDG"""

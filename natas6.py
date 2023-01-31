@@ -48,8 +48,8 @@ But how do we do that...
 
 It looks like we could use urllib according to some stackechange posts, but also I see this page: https://www.tutorialspoint.com/python_network_programming/python_webform_submission.htm
 Looks like we can make a dictionary with the data once again and pass that in our requests"""
-session = requests.Session()
-"""notice post here, since we're sending data and must post the secret per the first page we looked at
+"""session = requests.Session()
+notice post here, since we're sending data and must post the secret per the first page we looked at
 This doesn't seem to work by itself:"""
 #response = requests.post(url, data = {"secret": "FOEIUWGHFEEUHOFUOIU"}, auth = (username, password))
 """ooookay, so it's actually asking for two things above.
