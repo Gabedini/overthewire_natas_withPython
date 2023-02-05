@@ -1,28 +1,94 @@
 #!/usr/bin/env python
 
-#using requests module for python, not sure if I will need to install anything for this?
 import requests
 import re
 
-
-
 username = 'natas11'
 password = '1KFqoJXi6hRaPluAmk8ESDW4fSysRoIg'
-url = 'http://%s.natas.labs.overthewire.org/' % username
-#print(url) #make sure the URL works fine
+url = 'http://%s.natas.labs.overthewire.org/index-source.html' % username
+
+"""Starting with our default stuff"""
+#response = requests.get(url, auth = (username, password))
+#content = response.text
+#print(content)
 
 
+"""Things of note right away, looks like we're setting a background color now on the webpage instead of returning something...ok
+Probably more importantly, we see: "Cookies are protected with XOR encryption"
+
+Before we get too crazy, let's just pull the cookies real quick:"""
 session = requests.Session()
-response = session.get(url, auth = (username, password))#reeeeeeee make sure you don't have requests.get or cookies won't return
-print(session.cookies)
+response = session.get(url, auth = (username, password))
+#print(session.cookies)
+"""<RequestsCookieJar[<Cookie data=MGw7JCQ5OC04PT8jOSpqdmkgJ25nbCorKCEkIzlscm5oKC4qLSgubjY%3D for natas11.natas.labs.overthewire.org/
+]
+
+So, I am guessing that that string is what's encrypted in our data, if we can un-xor-ecnrypt that we might be able to do something?
+
+Next, let's check out what's going on behind the scenes and view our sourcecode"""
+#response = requests.get(url + "index-source.html", auth = (username, password))
+#content = response.text
+#print(content)
+"""Ok, alright ok - this one is significantly more complicated, let's see if we can pull some logic out of it, though
+I think this is the important part: 
+<?
+if($data["showpassword"] == "yes")  {
+        print "The  password  for  natas12  is  <censored
+<br
+";
+}
+
+?
+So yes, if we can get it to accept what we send it, ie if it runs our supplied cookie through it's PHP function and it comes out as 'yes'
+then we will get the password
+
+
+Ok, so that's great, but how do we do that?
+Well, so the first thing of note is what is xor encrypting? https://www.101computing.net/xor-encryption-algorithm/
+tl;dr is that it's this function, you can see it in the php a ^ b = c
+In other words, our plaintext ^ key = ciphertext
+Now this is a simple algebra math problem, the fun thing is, this is easily reversed
+So, if we have the items we want, we can do this to get the key: plaintext ^ ciphertext = key
+and then produce the ciphertext that we want, which is the cookie being 'yes' then we can submit that with our request.
+
+Now, if you wanted to use PHP, you could leverage the PHP code already written and reverse it, but that's getting into PHP and I don't care to mess with that.
+So, we're going to do this entirely in Python.
+There are a couple of additional things worth noting in that PHP though, beyond the xor_encrypt($in) function,
+the loadData($d) fuction has this: json_decode(xor_encrypt(base64_decode($_COOKIE["data"])),true);
+We also see a similar process further town doing that, so it's modifying the input to make it xor-able
+
+We know we're going to need a few more modules, so let's get those in here:"""
+import base64, urllib
+
+"""We're going to try implementing our first function, here. https://www.w3schools.com/python/python_functions.asp"""
+dataIn = ""
+key = ""
+def xor_encrypt(dataIn, key)
+        for i,j in dataIn, key
+                i = ord(i)
+                i = int(i)
+                
+
+
+
+
+
+
+
+defaultdata = { "showpassword" : "yes", "bgcolor" : "#ffff00"}
+cookies = { "showpassword" : "MGw7JCQ5OC04PT8jOSpqdmkgJ25nbCorKCEkIzlscm5oKC4qLSgubjY%3D" }
+response = session.get(url, auth = (username, password), cookies = defaultdata)
 content = response.text
+print(content)
 
 
 ######################
 #print(content)
-
+"""
 print(session.cookies)#can use this to view cookies on the page
-#<RequestsCookieJar[<Cookie data=MGw7JCQ5OC04PT8jOSpqdmkgJ25nbCorKCEkIzlscm5oKC4qLSgubjY%3D for natas11.natas.labs.overthewire.org/>]>
+#<RequestsCookieJar[<Cookie data=MGw7JCQ5OC04PT8jOSpqdmkgJ25nbCorKCEkIzlscm5oKC4qLSgubjY%3D for natas11.natas.labs.overthewire.org/
+]
+
 #can scrape the cookie data only with but it displays goofy (the data is clearly the password, which makes sense from the php on /index-source.html)
 print(session.cookies['data'])
 
@@ -54,7 +120,8 @@ print(content)
 #pasting the XOR function from the PHP below, I think we might have to reverse this in PHP, natas11.php?
 # ———————————————————————————————————————
 #function xor_encrypt($in) {
-#    $key = '<censored>';
+#    $key = '<censored
+';
 #    $text = $in;
 #    $outText = '';
 #
@@ -68,6 +135,10 @@ print(content)
 # ———————————————————————————————————————
 
 #classic regexing
-#print(re.findall('Output:\n<pre>\n(.*)\n</pre>', content))
+#print(re.findall('Output:\n<pre
+\n(.*)\n</pre
+', content))
+"""
+
 
 """SDG"""

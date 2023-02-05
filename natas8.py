@@ -7,8 +7,6 @@ username = 'natas8'
 password = 'a6bZCNYwdKqN5cGP11ZdtPg0iImQQhAB'
 url = 'http://%s.natas.labs.overthewire.org/' % username
 
-print(url) #make sure the URL works fine
-
 
 """Starting with our default stuff"""
 #response = requests.get(url, auth = (username, password))

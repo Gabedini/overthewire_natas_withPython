@@ -4,7 +4,7 @@
 Welcome to the natas solutions! The objective is to find the password for the next level in the webpages.
 """
 
-#using requests module for python to pull the pages.
+#using requests module for python to pull the pages. re is for regex.
 import requests
 import re
 
