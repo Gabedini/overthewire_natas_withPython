@@ -21,7 +21,7 @@ url = 'http://%s.natas.labs.overthewire.org/' % username
 """This looks pretty similar to last time, except they are filtering for I think just these characters: [;|&]
 Note on the above: yes, it is only those characters, they are escape character filtering similar to how we need to in python:
 https://www.w3schools.com/python/python_strings_escape.asp
-Not that the slackes // matter, but it could
+Not that the slaches // matter, but it could
 <?
 $key  =  "";
 
@@ -41,6 +41,7 @@ Not even ezpz ones if you know the right trick
 This page has more, hearkening back to the Bandit challenges: https://unix.stackexchange.com/questions/114300/whats-the-meaning-of-a-dot-before-a-command-in-shell"""
 response = requests.post(url, data = {"needle": ". /etc/natas_webpass/natas11", "submit" : "Search"}, auth = (username, password))
 content = response.text
+#print(content)
 """So this is still printing the whole dictionary and not really a step up from the last level. So we're going to format this nicely.
 Regex doesn't really do waht we want here, unless we knew exactly what we wanted. We can't grep the output becuase piping isn't allowed
 I found this dicussion on how to 'grep' in python https://stackoverflow.com/questions/47977169/what-is-the-grep-equivalent-in-python"""
