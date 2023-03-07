@@ -1,15 +1,21 @@
 <?php
 
 $defaultdata = array( "showpassword"=>"no", "bgcolor"=>"#ffffff");
+print_r($defaultdata);
+echo("\n");
 
 function xor_encrypt($in, $key) {
     //$key = '<censored>';
     $text = $in;
     $outText = '';
+    $currentValue = '';
 
     // Iterate through each character
     for($i=0;$i<strlen($text);$i++) {
     $outText .= $text[$i] ^ $key[$i % strlen($key)];
+    $currentValue = $text[$i] ^ $key[$i % strlen($key)];
+    echo($text[$i] . " ^ " . $key[$i % strlen($key)] . ":". $currentValue);
+    echo("\n");
     }
 
     return $outText;
@@ -35,6 +41,13 @@ echo("\n");
 
 $newCookie = base64_encode($secureCookie);
 echo($newCookie);
+echo("\n");
+
+
+$zero = "l";
+$kay = "N";
+$test = $zero ^ $kay;
+echo($test);
 echo("\n");
 
 ?>
